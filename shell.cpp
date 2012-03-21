@@ -91,7 +91,9 @@ int main(int argc, char *argv[])
                   filename+=holder[buffer];
               string _path;
               #ifdef _WIN32
-                     _path = "zenon.exe -f ";              
+                     _path = "zenon.exe -f ";    
+			  #elif __linux__ || __APPLE__
+				     _path = "./zenon.out -f ";
               #endif
               
               _path += filename;
