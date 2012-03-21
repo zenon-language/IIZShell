@@ -37,10 +37,15 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <cstdlib>
 #include <fstream>
 #include <new>
-#include <direct.h>
-#include <vector>
 #include <stdio.h> // for FILENAME_MAX
-#include <windows.h>
+#include <vector>
+
+#ifdef _WIN32
+       #include <windows.h>
+       #include <direct.h>
+#elif __linux__ || __APPLE__
+       #include <unistd.h>
+#endif
 // </include>
 
 #define GetCurrentDir _getcwd // define  external function
@@ -123,7 +128,13 @@ int main(int argc, char *argv[])
                return errno;   // check...
             cpath[sizeof(cpath) - 1] = '\0'; /* not 'needed' */ 
             str = cpath;
-            str += "/zenon.exe ";
+            #ifdef _WIN32
+                   str += "/zenon.exe ";
+            #elif __linux__
+                   str += "./zenon.out ";
+            #elif __APPLE__
+                   str += "./zenon.out ";
+            #endif
             str += holder;        
                          // Move characters from str -> *c[]         
             system(str.c_str());            
