@@ -90,7 +90,7 @@ int main(int argc, char *argv[])
               for (int buffer=1; buffer<holder.size();buffer++)
                   filename+=holder[buffer];
               string _path;
-              #ifdef Windows
+              #ifdef _WIN32
                      _path = "zenon.exe -f ";              
               #endif
               
